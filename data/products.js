@@ -91,7 +91,7 @@ object3.method();
 
 export let products = [];
 
-/*export function loadProductsFetch() {
+export function loadProductsFetch() {
   const promise = fetch(
     'https://supersimplebackend.dev/products'
   ).then((response) => {
@@ -140,7 +140,6 @@ export function loadProducts(fun) {
   xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 }
-*/
 
 export const products = [
   {
