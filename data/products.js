@@ -59,7 +59,7 @@ class Clothing extends Product {
 }
 
 
-const date = new Date();
+/*const date = new Date();
 console.log(date);
 console.log(date.toLocaleTimeString());
 
@@ -140,6 +140,7 @@ export function loadProducts(fun) {
   xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 }
+*/
 
 export const products = [
   {
