@@ -65,6 +65,7 @@ renderProductsGrid();
       .innerHTML = cartQuantity;
   }
 
+document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.js-add-to-cart')
     .forEach((button) => {
       button.addEventListener('click', () => {
@@ -73,4 +74,4 @@ renderProductsGrid();
         updateCartQuantity();
       });
     });
-
+});
