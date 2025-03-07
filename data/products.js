@@ -700,9 +700,9 @@ export const products = [
       "mens"
     ]
   }
-].map((productDetails) => {
-  if (productDetails.type === 'clothing') {
-    return new Clothing(productDetails);
-  }
-  return new Product(productDetails);
-});
+];
+
+// Convert all products to instances of Product or Clothing
+export const processedProducts = products.map(productDetails => 
+  productDetails.type === "clothing" ? new Clothing(productDetails) : new Product(productDetails)
+);
