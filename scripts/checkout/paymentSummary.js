@@ -1,5 +1,5 @@
 import {cart} from '../../data/cart.js';
-import {getProduct} from '../../data/products.mjs';
+import {products} from '../../data/products.mjs';
 import {getDeliveryOption} from '../../data/deliveryOptions.js';
 import {formatCurrency} from '../utils/money.js';
 import {addOrder} from '../../data/orders.js';
@@ -9,7 +9,10 @@ export function renderPaymentSummary() {
   let shippingPriceCents = 0;
 
   cart.forEach((cartItem) => {
-    const product = getProduct(cartItem.productId);
+    // Find the product directly in the array
+    const product = products.find(product => product.id === cartItem.productId);
+    if (!product) return; // Skip if product not found
+
     productPriceCents += product.priceCents * cartItem.quantity;
 
     const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
@@ -26,14 +29,14 @@ export function renderPaymentSummary() {
     </div>
 
     <div class="payment-summary-row">
-      <div>Items (3):</div>
+      <div>Items (${cart.length}):</div>
       <div class="payment-summary-money">
         $${formatCurrency(productPriceCents)}
       </div>
     </div>
 
     <div class="payment-summary-row">
-      <div>Shipping &amp; handling:</div>
+      <div>Shipping & handling:</div>
       <div class="payment-summary-money">
         $${formatCurrency(shippingPriceCents)}
       </div>
@@ -60,35 +63,30 @@ export function renderPaymentSummary() {
       </div>
     </div>
 
-    <button class="place-order-button button-primary
-      js-place-order">
+    <button class="place-order-button button-primary js-place-order">
       Place your order
     </button>
   `;
 
-  document.querySelector('.js-payment-summary')
-    .innerHTML = paymentSummaryHTML;
+  document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
 
-  document.querySelector('.js-place-order')
-    .addEventListener('click', async () => {
-      try {
-        const response = await fetch('https://supersimplebackend.dev/orders', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            cart: cart
-          })
-        });
+  document.querySelector('.js-place-order').addEventListener('click', async () => {
+    try {
+      const response = await fetch('https://supersimplebackend.dev/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cart })
+      });
 
-        const order = await response.json();
-        addOrder(order);
+      const order = await response.json();
+      addOrder(order);
 
-      } catch (error) {
-        console.log('Unexpected error. Try again later.');
-      }
+    } catch (error) {
+      console.log('Unexpected error. Try again later.');
+    }
 
-      window.location.href = 'orders.html';
-    });
+    window.location.href = 'orders.html';
+  });
 }
