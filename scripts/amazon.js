@@ -75,3 +75,21 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 });
+
+function updateCartCount() {
+  const cartQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+  document.querySelector('.js-cart-quantity').textContent = cartQuantity;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.js-add-to-cart')
+    .forEach((button) => {
+      button.addEventListener('click', () => {
+        const productId = button.dataset.productId;
+        addToCart(productId);
+  
+        // Call function to update cart count
+        updateCartCount();
+      });
+    });
+});
