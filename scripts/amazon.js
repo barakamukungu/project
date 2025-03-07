@@ -94,10 +94,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function updateCartCount() {
-  const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
-  const cartQuantity = savedCart.reduce((total, item) => total + item.quantity, 0);
-  document.querySelector('.js-cart-quantity').textContent = cartQuantity;
-}
-
 
