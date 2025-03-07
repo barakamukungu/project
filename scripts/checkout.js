@@ -20,15 +20,6 @@ async function loadPage() {
 
 loadPage();
 
-export function renderOrderSummary(products) {
-  console.log("Rendering order summary with products:", products);
-  // Implement the order summary rendering logic using the array
-}
-
-export function renderPaymentSummary(products) {
-  console.log("Rendering payment summary with products:", products);
-  // Implement the payment summary rendering logic using the array
-}
 
 /*
 Promise.all([
