@@ -1,32 +1,34 @@
 import {renderOrderSummary} from './checkout/orderSummary.js';
 import {renderPaymentSummary} from './checkout/paymentSummary.js';
-import {loadProducts, loadProductsFetch} from '../data/products.mjs';
+import {products} from '../data/products.mjs';
 import {loadCart} from '../data/cart.js';
 // import '../data/cart-class.js';
 // import '../data/backend-practice.js';
 
 async function loadPage() {
   try {
-    // throw 'error1';
-
-    await loadProductsFetch();
-
-    const value = await new Promise((resolve, reject) => {
-      // throw 'error2';
-      loadCart(() => {
-        // reject('error3');
-        resolve('value3');
-      });
-    });
-
+    // Ensure cart is loaded before rendering summaries
+    await new Promise((resolve) => loadCart(resolve));
   } catch (error) {
     console.log('Unexpected error. Please try again later.');
   }
 
-  renderOrderSummary();
-  renderPaymentSummary();
+  // Render order and payment summaries after cart loads
+  renderOrderSummary(products);
+  renderPaymentSummary(products);
 }
+
 loadPage();
+
+export function renderOrderSummary(products) {
+  console.log("Rendering order summary with products:", products);
+  // Implement the order summary rendering logic using the array
+}
+
+export function renderPaymentSummary(products) {
+  console.log("Rendering payment summary with products:", products);
+  // Implement the payment summary rendering logic using the array
+}
 
 /*
 Promise.all([
