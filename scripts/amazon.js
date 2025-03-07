@@ -17,7 +17,7 @@ function renderProductsGrid() {
         </div>
 
         <div class="product-rating-container">
-          <img class="product-rating-stars" src="ratings/${product.rating}.png">
+          <img class="product-rating-stars" src="ratings/rating-${product.rating}.png">
           <div class="product-rating-count link-primary">
             ${product.rating.count}
           </div>
